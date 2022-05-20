@@ -7,6 +7,8 @@ ARDUINO_PATH = config.ARDUINO_PATH
 serialcomm = serial.Serial(ARDUINO_PATH, 9600)
 serialcomm.timeout = 1
 
+# TODO: Rename functions to match python names
+
 
 def openGate():
     serialcomm.write("open".encode())
