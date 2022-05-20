@@ -8,7 +8,7 @@
             "name": "Python: Open Gate Script",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/opengate.py",
+            "program": "${workspaceFolder}/OpenSesame/run.py",
             "console": "integratedTerminal",
             "justMyCode": true,
             "sudo": true
