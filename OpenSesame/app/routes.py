@@ -1,11 +1,13 @@
-from app import app
+from app import app, opengate, auth
 
 
 @app.route("/open")
-def open_gate():
+@auth.requires_auth
+def open_gate(claims, *args, **kwargs):
     return "<p>Opening Gate!</p>"
 
 
 @app.route("/close")
-def close_gate():
+@auth.requires_auth
+def close_gate(claims, *args, **kwargs):
     return "<p>Closing Gate!</p>"
