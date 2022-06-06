@@ -4,3 +4,4 @@ __pycache__/
 
 #enviroment vars
 .env
+serviceAccountKey.json
