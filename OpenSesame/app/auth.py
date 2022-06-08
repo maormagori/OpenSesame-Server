@@ -19,19 +19,23 @@ users_collection = db.collection('users')
 def requires_auth(func):
     @functools.wraps(func)
     def auth_validate_wrapper(*args, **kwargs):
-        id_token = request.headers['Authorization'].split(' ').pop()
-        claims = google.oauth2.id_token.verify_firebase_token(
-            id_token, request, audience=config['GOOGLE_CLOUD_PROJECT'])
-        if claims:
-            return func(claims=claims, *args, **kwargs)
-        else:
+        try:
+            id_token = request.headers['Authorization'].split(' ').pop()
+        except Exception:
             return Response("User not authenticated!", 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
+        else:
+            claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, request, audience=config['GOOGLE_CLOUD_PROJECT'])
+            if claims:
+                return func(claims=claims, *args, **kwargs)
+            else:
+                return Response("User not authenticated!", 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
     return auth_validate_wrapper
 
 
-def is_theif(uid):
+def is_thief(uid):
     roles = get_user_roles(uid)
-    return roles.get('theif', False)
+    return roles.get('thief', False)
 
 
 def is_ali_baba(uid):
@@ -45,4 +49,7 @@ def get_user_roles(uid):
     if u_doc.exists:
         return u_doc.to_dict().get('roles')
     else:
-        return None
+        return {}
+
+
+print(is_thief('kP9INQ7JCuroUIr0sjfq'))
