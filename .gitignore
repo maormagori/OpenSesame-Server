@@ -1,2 +1,7 @@
+#generated python cache
 __pycache__/
 *.py[cod]
+
+#enviroment vars
+.env
+serviceAccountKey.json

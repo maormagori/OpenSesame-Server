@@ -1,8 +1,8 @@
 import atexit
 import serial
-import config
-
-ARDUINO_PATH = config.ARDUINO_PATH
+from app import app
+config = app.config
+ARDUINO_PATH = config['ARDUINO_PATH']
 
 serialcomm = serial.Serial(ARDUINO_PATH, 9600)
 serialcomm.timeout = 1
