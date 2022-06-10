@@ -52,4 +52,15 @@ def get_user_roles(uid):
         return {}
 
 
-print(is_thief('kP9INQ7JCuroUIr0sjfq'))
+def set_user_roles(uid, roles, ali_baba_id):
+    ali_baba_email = users_collection.document(
+        f'{ali_baba_id}').get().to_dict().get('email', ali_baba_id)
+
+    new_roles = {
+        'roles': {'aliBaba': 'aliBaba' in roles, 'thief': 'thief' in roles}}
+
+    # Timestamping authorization
+    new_roles['authrizedBy'] = ali_baba_email
+    new_roles['authrizedTimestamp'] = firestore.SERVER_TIMESTAMP
+
+    users_collection.document(f'{uid}').update(new_roles)
